@@ -1,26 +1,17 @@
-# Polynomial Homotopy GIF
+# Polynomial Console Graph
 
-## To Run/View
+### Graph Polynomials in your Terminal
 
-* clone
-* build
-* run
+### To Run
 
-## Purpose
+- Build and/or run the executable
+- Enter the number of polynomials you wish to graph
+- Enter the coefficients of those polynomials
+- Rinse + Repeat
 
-* Given two polynomials f and g, create a GIF illustrating the coefficient-wise straight-line homotopy h: f ~ g between them. 
+##### First C++ Repo by Nathan S
 
-## Features To Build
-
-	* Selectively render all three or just h. 
-	* For each time t in [0,1] display:
-		* t
-		* a slider with t moving between 0 and 1 
-		* the formula for h_t.
-	* Set frame count, screen size, etc.
-	* Set play options: 
-		* start to finish, pause before and after
-		* bounce back and fourth
+###### This code was adapted to Typescript to make the animations in the Polynomial Homotopy app in the trow repo.
 
 
 
