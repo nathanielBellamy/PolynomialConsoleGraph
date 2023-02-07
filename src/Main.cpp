@@ -3,11 +3,12 @@
 #include<string>
 #include<vector>
 #include "Draw.h"
+#include "Settings.h"
 using namespace std;
-//Fajekgh3lr5h2!@fs9
 
 int main (){
 	Draw draw;
+  Settings settings;
 
 	static const float sinXArr[12] = { 0.0, 2, 0.0, -1.6666666666, 0.0, .0083333333, 0.0, -0.0001984, 0.0, 0.00000275573192239858, 0.0, -0.000000025052108 };
 	static const float negSinXArr[12] = { 0.0, -2, 0.0, 1.6666666666, 0.0, -.0083333333, 0.0, 0.0001984, 0.0, -0.00000275573192239858, 0.0, 0.000000025052108 };
@@ -25,7 +26,7 @@ int main (){
 				<< "Welcome to Polynomial Console Graph \r\n"
 				<< "=========================== \r\n";
 
-	draw.render(defaultSinX);
+	draw.render(defaultSinX, settings);
 
 
 Start:
@@ -88,9 +89,58 @@ Start:
 		}
 	}
 
+  char adjustWindow;
+  std::cout << "============"
+    << "The default window is `[-1.3, 1.3] x [-1.3, 1.3]."
+    << " Do you want to adjust the window for your graph? (y/n)";
+  std::cin >> adjustWindow;
+
+  if (adjustWindow == 'y')
+  {
+    // TODO: validate
+    float xMin;
+    std::cout << "Set Min x: ";
+    std::cin >> xMin;
+    settings.xMin = xMin;
+
+    float xMax;
+    std::cout << "Set Max x: ";
+    std::cin >> xMax;
+    settings.xMax = xMax;
+
+    float yMin;
+    std::cout << "Set Min y: ";
+    std::cin >> yMin;
+    settings.yMin = yMin;
+
+    float yMax;
+    std::cout << "Set Max x: ";
+    std::cin >> yMax;
+    settings.yMax = yMax;
+  }
+
+  char adjustDisplaySize;
+  std::cout << "============"
+    << "The default display size is 80 characters by 30 characters."
+    << " Do you want to adjust the size for your graph? (y/n)";
+  std::cin >> adjustDisplaySize;
+
+  if (adjustDisplaySize == 'y')
+  {
+    // TODO: validate
+    int displayWidth;
+    std::cout << "Set Display Width: ";
+    std::cin >> displayWidth;
+    settings.displayWidth = displayWidth;
+
+    float displayHeight;
+    std::cout << "Set Display Height: ";
+    std::cin >> displayHeight;
+    settings.displayHeight = displayHeight;
+  }
 
 	std::cout << "Ok. Here we go! \r\n";
-	draw.render(polynomialArray);
+	draw.render(polynomialArray, settings);
 
 	goto Start;
 

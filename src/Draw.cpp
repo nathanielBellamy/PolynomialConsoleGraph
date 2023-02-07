@@ -7,81 +7,81 @@
 #include "Settings.h"
 using namespace std;
 
-
-
-std::string Draw::createRow(vector<vector<float> > imageArray, float y)
+std::string Draw::createRow(vector<vector<float> > imageArray, float y, Settings settings)
 	{
-		Settings settings;
 		float x;
 		std::string row = " ";
 
-		for (int t = 0;  t < settings._displayWidth; t++)
+    float stepWidth = Settings::stepWidth(settings);
+		for (int t = 0;  t < settings.displayWidth; t++)
 		{
-			x = (t * settings._stepWidth) + settings._xMin;
+			x = (t * stepWidth) + settings.xMin;
 			vector<float> imageOfX(imageArray.size(), 0);
 			for (int k = 0; k < imageArray.size(); k++)
 			{
 				imageOfX.at(k) = imageArray.at(k).at(t);
 			}
-			row += determineCharacterToRender(imageOfX, x, y);
+			row += determineCharacterToRender(imageOfX, x, y, settings);
 		}
 		return row + " \r\n";
 	};
 
-void Draw::render(vector<vector<float> > polynomialArray)
+void Draw::render(vector<vector<float> > polynomialArray, Settings settings)
 	{
-		Settings settings;
 		Compute compute;
 		float y;
 		std::string margin = " ";
 		std::string output;
 
-		vector<float> imageOfZeroFunction(settings._xStepCount+1, 0);
+    int xStepCount = Settings::xStepCount(settings);
+		vector<float> imageOfZeroFunction(xStepCount+1, 0);
 		vector<vector<float> > imageArray(polynomialArray.size(), imageOfZeroFunction);
 
-		imageArray = compute.computeImageArray(polynomialArray, imageArray);
+		imageArray = compute.computeImageArray(polynomialArray, imageArray, settings);
 		
-		for (int s = settings._displayHeight; s > -1; s--)
+    float stepHeight = Settings::stepHeight(settings);
+		for (int s = settings.displayHeight; s > -1; s--)
 		{
-			y = (s * settings._stepHeight) + settings._yMin;
-			std::cout << createRow(imageArray, y);
+			y = (s * stepHeight) + settings.yMin;
+			std::cout << createRow(imageArray, y, settings);
 		}
 	};
 
-char Draw::determineCharacterToRender(vector<float> imageOfX, float x, float y)
+char Draw::determineCharacterToRender(vector<float> imageOfX, float x, float y, Settings settings)
 	{
-		Settings settings;
 		Compute compute;
+    float stepWidth = Settings::stepWidth(settings);
+    float stepHeight = Settings::stepHeight(settings);
 		for (int i = 0; i < imageOfX.size(); i++)
 		{
-			char backgroundChar = settings._backgroundChar;
-			int indexToPrint = compute.minimumIndexWithinYPlusEpsilon(imageOfX, y);
+			char backgroundChar = settings.backgroundChar;
+			int indexToPrint = compute.minimumIndexWithinYPlusEpsilon(imageOfX, y, settings);
 			if (indexToPrint > -1)
 			{
 				return '0' + indexToPrint;
 			}
 			else
 			{
-				if (abs(y) < settings._stepHeight/2)
+				if (abs(y) < stepHeight/2)
 				{
-					if (abs(x) < settings._stepWidth/2)
+					if (abs(x) < stepWidth/2)
 					{
-						backgroundChar = settings._originChar;
+						backgroundChar = settings.originChar;
 					}
 					else
 					{
-						backgroundChar = settings._xAxisChar;
+						backgroundChar = settings.xAxisChar;
 					}
 				}
 				else
 				{
-					if (abs(x) < settings._stepWidth/2)
+					if (abs(x) < stepWidth/2)
 					{
-						backgroundChar = settings._yAxisChar;
+						backgroundChar = settings.yAxisChar;
 					}
 				}
 				return backgroundChar;
 			}
 		}	
-		return settings._backgroundChar;
+		return settings.backgroundChar;
 	};

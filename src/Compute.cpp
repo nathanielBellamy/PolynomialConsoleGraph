@@ -16,13 +16,12 @@ using namespace std;
 		return output;
 	};
 
-	int Compute::minimumIndexWithinYPlusEpsilon(vector<float> imageOfX, float y)
+	int Compute::minimumIndexWithinYPlusEpsilon(vector<float> imageOfX, float y, Settings settings)
 	{
-		Settings settings;
 		for (int i = 0; i < imageOfX.size(); i++)
 		{	
 			float pointOnGraph = imageOfX.at(i); 
-			if (abs(pointOnGraph - y) < settings._epsilon)
+			if (abs(pointOnGraph - y) < settings.epsilon)
 			{
 				return i;
 			}
@@ -31,15 +30,16 @@ using namespace std;
 		return -1;
 	};
 
-	vector<vector<float> > Compute::computeImageArray(vector<vector<float> > polynomialArray, vector<vector<float> > imageArray)
+	vector<vector<float> > Compute::computeImageArray(vector<vector<float> > polynomialArray, vector<vector<float> > imageArray, Settings settings)
 	{
-		Settings settings;
+    float stepWidth = Settings::stepWidth(settings);
 		for (int i = 0; i < polynomialArray.size(); i++)
 		{
 			vector<float> thisPolynomial = polynomialArray.at(i);
-			for (int j = 0; j <= Settings::_xStepCount; j++)
+      int xStepCount = Settings::xStepCount(settings);
+			for (int j = 0; j <= xStepCount; j++)
 			{
-				float x = settings._xMin + j * settings._stepWidth; // j = (x - _xMin)/stepWidth
+				float x = settings.xMin + j * stepWidth; // j = (x - xMin)/stepWidth
 				imageArray.at(i).at(j) = execute(thisPolynomial, x);		
 			}
 		}

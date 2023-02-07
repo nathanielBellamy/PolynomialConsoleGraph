@@ -2,26 +2,33 @@
 #include "Settings.h"
 using namespace std;
 
-	char Settings::_backgroundChar= '.';
+	char Settings::backgroundChar= '.';
+	char Settings::originChar = '+';
+	char Settings::xAxisChar = '-';
+	char Settings::yAxisChar = '|';
+	float Settings::xMin = -1.3;
+	float Settings::xMax = 1.3;
+	float Settings::yMin = -1.3;
+	float Settings::yMax = 1.3;
+	float Settings::epsilon = 0.1;
+  int Settings::displayWidth = 80;
+  int Settings::displayHeight = 30;
 
-	char Settings::_originChar = '+';
-	char Settings::_xAxisChar = '-';
-	char Settings::_yAxisChar = '|';
-	float Settings::_xMin = -1.3;
-	float Settings::_xMax = 1.3;
-	float Settings::_yMin = -1.3;
-	float Settings::_yMax = 1.3;
-	float Settings::_epsilon = 0.1;
-	float Settings::_domainWidth = Settings::_xMax - Settings::_xMin;
-	float Settings::_rangeHeight = Settings::_yMax - Settings::_yMin;
+  float Settings::stepWidth(Settings settings)
+  {
+    return (settings.xMax - settings.xMin)/settings.displayWidth;
+  }
 
-	int Settings::_displayWidth = 40;
-	int Settings::_displayHeight = 15;
+  float Settings::stepHeight(Settings settings)
+  {
+    return (settings.yMax - settings.yMin)/settings.displayHeight;
+  }
 
-	float Settings::_stepWidth = Settings::_domainWidth/Settings::_displayWidth;
-	float Settings::_stepHeight = Settings::_rangeHeight/Settings::_displayHeight;
-
-	int Settings::_xStepCount = (Settings::_xMax - Settings::_xMin) / Settings::_stepWidth;
+  int Settings::xStepCount(Settings settings)
+  {
+    float stepWidth = Settings::stepWidth(settings);
+    return (xMax - xMin)/stepWidth;
+  }
 
 
 
