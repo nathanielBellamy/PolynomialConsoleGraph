@@ -2,11 +2,13 @@
 #include<cmath>
 #include<string>
 #include<vector>
+#include "Cli.h"
 #include "Draw.h"
 #include "Settings.h"
 using namespace std;
 
 int main (){
+  Cli cli;
 	Draw draw;
   Settings settings;
 
@@ -139,19 +141,7 @@ Start:
     settings.displayHeight = displayHeight;
   }
 
-  char adjustEpsilon;
-  std::cout << "============"
-    << "Adjust Epsilon? (y/n)"
-    << "If you are having trouble seeing your graph, try increasing this value.";
-  std::cin >> adjustEpsilon;
-
-  if (adjustEpsilon == 'y')
-  {
-    int epsilon;
-    std::cout << "Set Epsilon: ";
-    std::cin >> epsilon;
-    settings.epsilon = epsilon;
-  }
+  cli.setEpsilon(settings);
 
 	std::cout << "Ok. Here we go! \r\n";
 	draw.render(polynomialArray, settings);
