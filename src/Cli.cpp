@@ -32,8 +32,8 @@ using namespace std;
   {
     char adjustEpsilon;
     std::cout << "============"
-      << "Adjust Epsilon? (y/n) - "
-      << "If you are having trouble seeing your graph, try increasing this value.";
+      << "Adjust Epsilon? "
+      << "(If you are having trouble seeing your graph, try increasing this value.) (y/n)";
     std::cin >> adjustEpsilon;
 
     if (adjustEpsilon == 'y')

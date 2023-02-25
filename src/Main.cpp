@@ -29,11 +29,24 @@ int main (){
 
 	draw.render(defaultSinX, settings);
 
+  bool firstPass;
+  firstPass = true;
+
 Start:
 	char graphPolynomials;
-	std::cout << "========================== \r\n"
-				<< "Graph some polynomials? (y/n) \r\n"
-				<< "========================== \r\n";
+
+  if (firstPass)
+  {
+    firstPass = false;
+    std::cout << "========================== \r\n"
+      << "Graph some polynomials? (y/n) \r\n"
+      << "========================== \r\n";
+  } else {
+    std::cout << "========================== \r\n"
+      << "Go Again? (y/n) \r\n"
+      << "========================== \r\n";
+  }
+
 	std::cin >> graphPolynomials;
 	if (cin.fail() || (graphPolynomials != 'n' && graphPolynomials != 'y'))
 	{
