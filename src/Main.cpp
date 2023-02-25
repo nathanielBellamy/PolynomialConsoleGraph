@@ -15,7 +15,6 @@ int main (){
 	static const float sinXArr[12] = { 0.0, 2, 0.0, -1.6666666666, 0.0, .0083333333, 0.0, -0.0001984, 0.0, 0.00000275573192239858, 0.0, -0.000000025052108 };
 	static const float negSinXArr[12] = { 0.0, -2, 0.0, 1.6666666666, 0.0, -.0083333333, 0.0, 0.0001984, 0.0, -0.00000275573192239858, 0.0, 0.000000025052108 };
 
-
 	vector<float> sinXVec (sinXArr, sinXArr + sizeof(sinXArr) / sizeof(sinXArr[0]) );
 	vector<float> negSinXVec (negSinXArr, negSinXArr + sizeof(negSinXArr) / sizeof(negSinXArr[0]) );
 	vector<float> zeroPolynomialOfDegreeTwelve (12, 0);
@@ -30,9 +29,7 @@ int main (){
 
 	draw.render(defaultSinX, settings);
 
-
 Start:
-
 	char graphPolynomials;
 	std::cout << "========================== \r\n"
 				<< "Graph some polynomials? (y/n) \r\n"
