@@ -24,13 +24,12 @@ using namespace std;
 				return i;
 			}
 		}	
-
 		return -1;
 	};
 
-	vector<vector<float> > Compute::computeImageArray( vector<vector<float> > polynomialArray,
-                                                     vector<vector<float> > imageArray,
-                                                     Settings settings) {
+	vector<vector<float> > Compute::computeImageArray(vector<vector<float> > polynomialArray,
+                                                    vector<vector<float> > imageArray,
+                                                    Settings settings) {
     float stepWidth = Settings::stepWidth(settings);
 		for (int i = 0; i < polynomialArray.size(); i++)
 		{
