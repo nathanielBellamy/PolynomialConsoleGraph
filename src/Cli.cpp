@@ -2,51 +2,63 @@
 #include<string>
 #include<vector>
 #include "Cli.h"
+#include "CliValidate.h"
 #include "Settings.h"
 using namespace std;
 
-  void Cli::setDisplaySize(Settings &settings)
-  {
+  void Cli::setDisplaySize(Settings &settings) {
+    CliValidate valid;
     char adjustDisplaySize;
     std::cout << "============"
       << "The default display size is 80 characters by 30 characters."
       << " Do you want to adjust the size for your graph? (y/n)";
     std::cin >> adjustDisplaySize;
 
-    if (adjustDisplaySize == 'y')
-    {
-      // TODO: validate
-      int displayWidth;
-      std::cout << "Set Display Width: ";
-      std::cin >> displayWidth;
-      settings.displayWidth = displayWidth;
+    if (adjustDisplaySize == 'y'){
+      SetWidth:
+        int displayWidth;
+        std::cout << "Set Display Width: ";
+        std::cin >> displayWidth;
+        if (valid.displaySize(displayWidth)) {
+          settings.displayWidth = displayWidth;
+        } else {
+          goto SetWidth;
+        }
 
-      float displayHeight;
-      std::cout << "Set Display Height: ";
-      std::cin >> displayHeight;
-      settings.displayHeight = displayHeight;
+      SetHeight:
+        int displayHeight;
+        std::cout << "Set Display Height: ";
+        std::cin >> displayHeight;
+        if (valid.displaySize(displayHeight)) {
+          settings.displayHeight = displayHeight;
+        } else {
+          goto SetHeight;
+        }
     }
   };
 
-  void Cli::setEpsilon(Settings &settings)
-  {
+  void Cli::setEpsilon(Settings &settings) {
+    CliValidate valid;
     char adjustEpsilon;
     std::cout << "============"
       << "Adjust Epsilon? "
       << "(If you are having trouble seeing your graph, try increasing this value.) (y/n)";
     std::cin >> adjustEpsilon;
 
-    if (adjustEpsilon == 'y')
-    {
-      int epsilon;
-      std::cout << "Set Epsilon: ";
-      std::cin >> epsilon;
-      settings.epsilon = epsilon;
+    if (adjustEpsilon == 'y') {
+      SetEpsilon:
+        int epsilon;
+        std::cout << "Set Epsilon: ";
+        std::cin >> epsilon;
+        if (valid.epsilon(epsilon)) {
+          settings.epsilon = epsilon;
+        } else {
+          goto SetEpsilon;
+        }
     }
   };
 
-  vector<vector<float> > Cli::setPolynomials(Settings &settings)
-  {
+  vector<vector<float> > Cli::setPolynomials(Settings &settings) {
     std::cout << "========================== \r\n"
           << "\r\n \r\n"
           << "How many would you like to graph? \r\n";
@@ -77,7 +89,7 @@ using namespace std;
     for (int i = 0; i < polyCount; i++)
     {
       std::cout << "============================="
-            << "Please define the coefficients for Polynomial # " << i << "\r\n";
+            << "Please define the coefficients for Polynomial # " << i << "\n";
       for (int j = maxDegree; j > -1; j--)
       {
         float jthCoefficient = 0.0;
@@ -90,12 +102,11 @@ using namespace std;
     return polynomialArray;
   };
 
-  void Cli::setWindow(Settings &settings)
-  {
+  void Cli::setWindow(Settings &settings) {
     char adjustWindow;
     std::cout << "============"
-      << "The default window is `[-1.3, 1.3] x [-1.3, 1.3]."
-      << " Do you want to adjust the window for your graph? (y/n)";
+      << "The default window is `[-1.3, 1.3] x [-1.3, 1.3]. \n"
+      << "Do you want to adjust the window for your graph? (y/n) \n";
     std::cin >> adjustWindow;
 
     if (adjustWindow == 'y')
@@ -117,7 +128,7 @@ using namespace std;
       settings.yMin = yMin;
 
       float yMax;
-      std::cout << "Set Max x: ";
+      std::cout << "Set Max y: ";
       std::cin >> yMax;
       settings.yMax = yMax;
     }

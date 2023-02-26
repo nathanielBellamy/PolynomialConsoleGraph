@@ -14,18 +14,15 @@ using namespace std;
   int Settings::displayWidth = 80;
   int Settings::displayHeight = 30;
 
-  float Settings::stepWidth(Settings settings)
-  {
+  float Settings::stepWidth(Settings settings) {
     return (settings.xMax - settings.xMin)/settings.displayWidth;
   }
 
-  float Settings::stepHeight(Settings settings)
-  {
+  float Settings::stepHeight(Settings settings) {
     return (settings.yMax - settings.yMin)/settings.displayHeight;
   }
 
-  int Settings::xStepCount(Settings settings)
-  {
+  int Settings::xStepCount(Settings settings) {
     float stepWidth = Settings::stepWidth(settings);
     return (xMax - xMin)/stepWidth;
   }

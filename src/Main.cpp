@@ -35,8 +35,7 @@ int main (){
 Start:
 	char graphPolynomials;
 
-  if (firstPass)
-  {
+  if (firstPass) {
     firstPass = false;
     std::cout << "========================== \r\n"
       << "Graph some polynomials? (y/n) \r\n"
@@ -48,15 +47,13 @@ Start:
   }
 
 	std::cin >> graphPolynomials;
-	if (cin.fail() || (graphPolynomials != 'n' && graphPolynomials != 'y'))
-	{
+	if (cin.fail() || (graphPolynomials != 'n' && graphPolynomials != 'y')) {
 		cin.clear();
 		cin.ignore(1024, '\n');
 		std::cout << " \r\n \r\n Please answer (y/n).... \r\n \r\n";
 		goto Start;
 	}
-	if (graphPolynomials == 'n')
-	{
+	if (graphPolynomials == 'n') {
 		std::cout << "=== Thanks for Graphing!! ====";
 		return 0;
 	}

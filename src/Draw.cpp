@@ -7,8 +7,7 @@
 #include "Settings.h"
 using namespace std;
 
-std::string Draw::createRow(vector<vector<float> > imageArray, float y, Settings settings)
-	{
+  std::string Draw::createRow(vector<vector<float> > imageArray, float y, Settings settings) {
 		float x;
 		std::string row = " ";
 
@@ -26,8 +25,7 @@ std::string Draw::createRow(vector<vector<float> > imageArray, float y, Settings
 		return row + " \r\n";
 	};
 
-void Draw::render(vector<vector<float> > polynomialArray, Settings settings)
-	{
+  void Draw::render(vector<vector<float> > polynomialArray, Settings settings) {
 		Compute compute;
 		float y;
 		std::string margin = " ";
@@ -47,8 +45,7 @@ void Draw::render(vector<vector<float> > polynomialArray, Settings settings)
 		}
 	};
 
-char Draw::determineCharacterToRender(vector<float> imageOfX, float x, float y, Settings settings)
-	{
+char Draw::determineCharacterToRender(vector<float> imageOfX, float x, float y, Settings settings) {
 		Compute compute;
     float stepWidth = Settings::stepWidth(settings);
     float stepHeight = Settings::stepHeight(settings);

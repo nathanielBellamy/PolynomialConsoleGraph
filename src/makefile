@@ -2,7 +2,7 @@
 
 CC = g++
 CFLAGS=-c -Wall
-SOURCES = Main.cpp Cli.cpp Compute.cpp Draw.cpp Settings.cpp
+SOURCES = Main.cpp Cli.cpp CliValidate.cpp Compute.cpp Draw.cpp Settings.cpp
 OBJS = $(SOURCES:.cpp=.o)
 EXEC = PolynomialConsoleGraph
 
