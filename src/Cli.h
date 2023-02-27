@@ -10,7 +10,7 @@ class Cli {
     static void outro();
     static void setDisplaySize(Settings &settings);
     static void setEpsilon(Settings &settings);
-    static vector<vector<float> > setPolynomials(Settings &settings);
+    static vector<vector<double> > setPolynomials(Settings &settings);
     static void setWindow(Settings &settings);
     static bool yesno();
 };

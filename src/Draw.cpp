@@ -7,15 +7,15 @@
 #include "Settings.h"
 using namespace std;
 
-  std::string Draw::createRow(vector<vector<float> > imageArray, float y, Settings settings) {
-		float x;
+  std::string Draw::createRow(vector<vector<double> > imageArray, double y, Settings settings) {
+		double x;
 		std::string row = " ";
 
-    float stepWidth = Settings::stepWidth(settings);
+    double stepWidth = Settings::stepWidth(settings);
 		for (int t = 0;  t < settings.displayWidth; t++)
 		{
 			x = (t * stepWidth) + settings.xMin;
-			vector<float> imageOfX(imageArray.size(), 0);
+			vector<double> imageOfX(imageArray.size(), 0);
 			for (int k = 0; k < imageArray.size(); k++)
 			{
 				imageOfX.at(k) = imageArray.at(k).at(t);
@@ -25,19 +25,19 @@ using namespace std;
 		return row + " \r\n";
 	};
 
-  void Draw::render(vector<vector<float> > polynomialArray, Settings settings) {
+  void Draw::render(vector<vector<double> > polynomialArray, Settings settings) {
 		Compute compute;
-		float y;
+		double y;
 		std::string margin = " ";
 		std::string output;
 
     int xStepCount = Settings::xStepCount(settings);
-		vector<float> imageOfZeroFunction(xStepCount+1, 0);
-		vector<vector<float> > imageArray(polynomialArray.size(), imageOfZeroFunction);
+		vector<double> imageOfZeroFunction(xStepCount+1, 0);
+		vector<vector<double> > imageArray(polynomialArray.size(), imageOfZeroFunction);
 
 		imageArray = compute.computeImageArray(polynomialArray, imageArray, settings);
 		
-    float stepHeight = Settings::stepHeight(settings);
+    double stepHeight = Settings::stepHeight(settings);
 		for (int s = settings.displayHeight; s > -1; s--)
 		{
 			y = (s * stepHeight) + settings.yMin;
@@ -45,10 +45,10 @@ using namespace std;
 		}
 	};
 
-char Draw::determineCharacterToRender(vector<float> imageOfX, float x, float y, Settings settings) {
+char Draw::determineCharacterToRender(vector<double> imageOfX, double x, double y, Settings settings) {
 		Compute compute;
-    float stepWidth = Settings::stepWidth(settings);
-    float stepHeight = Settings::stepHeight(settings);
+    double stepWidth = Settings::stepWidth(settings);
+    double stepHeight = Settings::stepHeight(settings);
 		for (int i = 0; i < imageOfX.size(); i++)
 		{
 			char backgroundChar = settings.backgroundChar;

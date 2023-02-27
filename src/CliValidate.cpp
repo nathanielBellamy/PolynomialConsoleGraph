@@ -5,7 +5,7 @@
 #include "CliValidate.h"
 using namespace std;
 
-  bool CliValidate::axisInterval(float min, float max) {
+  bool CliValidate::axisInterval(double min, double max) {
     bool result;
     result = true;
     if (max <= min) {
@@ -25,10 +25,10 @@ using namespace std;
     return result;
   };
 
-  bool CliValidate::epsilon(float epsilon) {
+  bool CliValidate::epsilon(double epsilon) {
     bool result;
     result = true;
-    if (epsilon <= 0) {
+    if (!isdigit(epsilon) || epsilon <= 0) {
       result = false;
       std::cout << "Please enter a number greater than 0. \n";
     }

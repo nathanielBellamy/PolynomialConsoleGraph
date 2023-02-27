@@ -25,7 +25,7 @@ Start:
 		return 0;
 	}
 
-  vector<vector<float> > polynomialArray;
+  vector<vector<double> > polynomialArray;
   polynomialArray = cli.setPolynomials(settings);
   cli.setWindow(settings);
   cli.setDisplaySize(settings);

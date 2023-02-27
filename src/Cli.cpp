@@ -3,6 +3,7 @@
 #include<vector>
 #include "Cli.h"
 #include "CliValidate.h"
+#include "CliGet.h"
 #include "Draw.h"
 #include "Settings.h"
 using namespace std;
@@ -10,14 +11,14 @@ using namespace std;
   void Cli::intro(Settings &settings) {
     Draw draw;
 
-    static const float sinXArr[12] = { 0.0, 2, 0.0, -1.6666666666, 0.0, .0083333333, 0.0, -0.0001984, 0.0, 0.00000275573192239858, 0.0, -0.000000025052108 };
-    static const float negSinXArr[12] = { 0.0, -2, 0.0, 1.6666666666, 0.0, -.0083333333, 0.0, 0.0001984, 0.0, -0.00000275573192239858, 0.0, 0.000000025052108 };
+    static const double sinXArr[12] = { 0.0, 2, 0.0, -1.6666666666, 0.0, .0083333333, 0.0, -0.0001984, 0.0, 0.00000275573192239858, 0.0, -0.000000025052108 };
+    static const double negSinXArr[12] = { 0.0, -2, 0.0, 1.6666666666, 0.0, -.0083333333, 0.0, 0.0001984, 0.0, -0.00000275573192239858, 0.0, 0.000000025052108 };
 
-    vector<float> sinXVec (sinXArr, sinXArr + sizeof(sinXArr) / sizeof(sinXArr[0]) );
-    vector<float> negSinXVec (negSinXArr, negSinXArr + sizeof(negSinXArr) / sizeof(negSinXArr[0]) );
-    vector<float> zeroPolynomialOfDegreeTwelve (12, 0);
+    vector<double> sinXVec (sinXArr, sinXArr + sizeof(sinXArr) / sizeof(sinXArr[0]) );
+    vector<double> negSinXVec (negSinXArr, negSinXArr + sizeof(negSinXArr) / sizeof(negSinXArr[0]) );
+    vector<double> zeroPolynomialOfDegreeTwelve (12, 0);
 
-    vector<vector<float> > defaultSinX(2, zeroPolynomialOfDegreeTwelve);
+    vector<vector<double> > defaultSinX(2, zeroPolynomialOfDegreeTwelve);
     defaultSinX.at(0) = sinXVec;
     defaultSinX.at(1) = negSinXVec;
 
@@ -40,7 +41,7 @@ using namespace std;
         << "========================== \n";
     }
 
-    return yesno();
+    return get::yesno();
   };
 
   void Cli::outro() {
@@ -80,19 +81,20 @@ using namespace std;
   };
 
   void Cli::setEpsilon(Settings &settings) {
+    CliGet get;
     CliValidate valid;
 
     std::cout << "============"
       << "Adjust Epsilon? "
       << "(If you are having trouble seeing your graph, try increasing this value.)";
     bool adjustEpsilon;
-    adjustEpsilon = yesno();
+    adjustEpsilon = get.cliyesno();
 
     if (adjustEpsilon) {
       SetEpsilon:
-        int epsilon;
         std::cout << "Set Epsilon: ";
-        std::cin >> epsilon;
+        double epsilon;
+        epsilon = get.cliDouble();
         if (valid.epsilon(epsilon)) {
           settings.epsilon = epsilon;
         } else {
@@ -101,7 +103,8 @@ using namespace std;
     }
   };
 
-  vector<vector<float> > Cli::setPolynomials(Settings &settings) {
+  vector<vector<double> > Cli::setPolynomials(Settings &settings) {
+    CliGet get;
     CliValidate valid;
     std::cout << "========================== \n"
           << "\n \n"
@@ -109,7 +112,7 @@ using namespace std;
 
     SetPolyCount:
       int polyCount;
-      std::cin >> polyCount;
+      polyCount = get.cliInt();
       if (!valid.polyCount(polyCount)) {
         goto SetPolyCount;
       }
@@ -120,7 +123,7 @@ using namespace std;
 
     SetMaxDegree:
       int maxDegree;
-      std::cin >> maxDegree;
+      maxDegree = get.cliInt();
       if (!valid.maxDegree(maxDegree)) {
         goto SetMaxDegree;
       }
@@ -134,8 +137,8 @@ using namespace std;
       }_{0 <= i <= polyCount-1}
     */
 
-    vector<float> zeroPolynomialOfMaxDegree(maxDegree+1, 0);
-    vector<vector<float> > polynomialArray(polyCount, zeroPolynomialOfMaxDegree);
+    vector<double> zeroPolynomialOfMaxDegree(maxDegree+1, 0);
+    vector<vector<double> > polynomialArray(polyCount, zeroPolynomialOfMaxDegree);
 
     for (int i = 0; i < polyCount; i++)
     {
@@ -143,9 +146,9 @@ using namespace std;
             << "Please define the coefficients for Polynomial # " << i << "\n";
       for (int j = maxDegree; j > -1; j--)
       {
-        float jthCoefficient = 0.0;
         std::cout << "Coefficient for x to the " << j << " : ";
-        std::cin >> jthCoefficient;
+        double jthCoefficient = 0.0;
+        jthCoefficient = get.cliDouble();
         polynomialArray.at(i).at(j) = jthCoefficient;
       }
     }
@@ -163,8 +166,8 @@ using namespace std;
 
     if (adjustWindow) {
       SetXAxis:
-        float xMin;
-        float xMax;
+        double xMin;
+        double xMax;
         std::cout << "Set Min x: ";
         std::cin >> xMin;
         std::cout << "Set Max x: ";
@@ -178,8 +181,8 @@ using namespace std;
         }
 
       SetYAxis:
-        float yMin;
-        float yMax;
+        double yMin;
+        double yMax;
         std::cout << "Set Min y: ";
         std::cin >> yMin;
         std::cout << "Set Max y: ";
