@@ -1,5 +1,8 @@
 #ifndef Cli_H
 #define Cli_H
+#include<string>
+#include<vector>
+#include "CliGet.h"
 #include "Settings.h"
 using namespace std;
 

@@ -28,7 +28,7 @@ using namespace std;
   bool CliValidate::epsilon(double epsilon) {
     bool result;
     result = true;
-    if (!isdigit(epsilon) || epsilon <= 0) {
+    if (epsilon <= 0) {
       result = false;
       std::cout << "Please enter a number greater than 0. \n";
     }

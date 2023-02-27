@@ -2,8 +2,8 @@
 #include<string>
 #include<vector>
 #include "Cli.h"
-#include "CliValidate.h"
 #include "CliGet.h"
+#include "CliValidate.h"
 #include "Draw.h"
 #include "Settings.h"
 using namespace std;
@@ -30,6 +30,7 @@ using namespace std;
   };
 
   bool Cli::openingQuestion(bool &firstPass) {
+    CliGet get;
     if (firstPass) {
       firstPass = false;
       std::cout << "========================== \n"
@@ -41,7 +42,7 @@ using namespace std;
         << "========================== \n";
     }
 
-    return get::yesno();
+    return get.cliyesno();
   };
 
   void Cli::outro() {
@@ -49,19 +50,20 @@ using namespace std;
   }
 
   void Cli::setDisplaySize(Settings &settings) {
+    CliGet get;
     CliValidate valid;
 
     std::cout << "============"
       << "The default display size is 80 characters by 30 characters."
       << " Do you want to adjust the size for your graph?";
     bool adjustDisplaySize;
-    adjustDisplaySize = yesno();
+    adjustDisplaySize = get.cliyesno();
 
     if (adjustDisplaySize){
       SetWidth:
-        int displayWidth;
         std::cout << "Set Display Width: ";
-        std::cin >> displayWidth;
+        int displayWidth;
+        displayWidth = get.cliInt();
         if (valid.displaySize(displayWidth)) {
           settings.displayWidth = displayWidth;
         } else {
@@ -69,9 +71,9 @@ using namespace std;
         }
 
       SetHeight:
-        int displayHeight;
         std::cout << "Set Display Height: ";
-        std::cin >> displayHeight;
+        int displayHeight;
+        displayHeight = get.cliInt();
         if (valid.displaySize(displayHeight)) {
           settings.displayHeight = displayHeight;
         } else {
@@ -106,6 +108,7 @@ using namespace std;
   vector<vector<double> > Cli::setPolynomials(Settings &settings) {
     CliGet get;
     CliValidate valid;
+
     std::cout << "========================== \n"
           << "\n \n"
           << "How many would you like to graph? \n";
@@ -157,21 +160,23 @@ using namespace std;
   };
 
   void Cli::setWindow(Settings &settings) {
+    CliGet get;
     CliValidate valid;
+
     std::cout << "============"
       << "The default window is `[-1.3, 1.3] x [-1.3, 1.3]. \n"
       << "Do you want to adjust the window for your graph?";
     bool adjustWindow;
-    adjustWindow = yesno();
+    adjustWindow = get.cliyesno();
 
     if (adjustWindow) {
       SetXAxis:
         double xMin;
         double xMax;
         std::cout << "Set Min x: ";
-        std::cin >> xMin;
+        xMin = get.cliDouble();
         std::cout << "Set Max x: ";
-        std::cin >> xMax;
+        xMax = get.cliDouble();
 
         if (valid.axisInterval(xMin, xMax)) {
           settings.xMin = xMin;
@@ -184,9 +189,9 @@ using namespace std;
         double yMin;
         double yMax;
         std::cout << "Set Min y: ";
-        std::cin >> yMin;
+        yMin = get.cliDouble();
         std::cout << "Set Max y: ";
-        std::cin >> yMax;
+        yMax = get.cliDouble();
 
         if (valid.axisInterval(yMin, yMax)) {
           settings.yMin = yMin;
@@ -197,15 +202,3 @@ using namespace std;
     }
   };
 
-  bool Cli::yesno() {
-    YesNo:
-      char result;
-      std::cout << " (y/n) ";
-      std::cin >> result;
-      if (cin.fail() || (result != 'n' && result != 'y')) {
-        cin.clear();
-        cin.ignore(1024, '\n');
-        goto YesNo;
-      }
-      return result == 'y';
-  };
