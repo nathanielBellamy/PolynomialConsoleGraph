@@ -14,5 +14,5 @@
 
 ##### First C++ Repo by Nathan S
 
-###### This code was adapted to Typescript to make the animations in the Polynomial Homotopy app in the trow repo
+###### This code was adapted to Typescript to make the animations in the Polynomial Homotopy app in [trow](https://github.com/nathanielBellamy/trow)
 
