@@ -119,8 +119,11 @@ using namespace std;
       if (!valid.polyCount(polyCount)) {
         goto SetPolyCount;
       }
+    
+    std::cout << "\n Entered: ";
+    std::cout << polyCount;
 
-    std::cout << "========================== \n"
+    std::cout << "\n ========================== \n"
           << "\n \n"
           << "What's the highest degree you'd like to graph? \n";
 

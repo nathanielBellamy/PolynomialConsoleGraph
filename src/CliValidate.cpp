@@ -18,9 +18,9 @@ using namespace std;
   bool CliValidate::displaySize(int size) {
     bool result;
     result = true;
-    if (size < 1) {
+    if (size < 1 || size > 1000) {
       result = false;
-      std::cout << "Please enter a whole number greater than or equal to 1. \n";
+      std::cout << "Please enter a whole number between 1 and 1000. \n";
     }
     return result;
   };
@@ -38,9 +38,9 @@ using namespace std;
   bool CliValidate::maxDegree(int max) {
     bool result;
     result = true;
-    if (max < 0) {
+    if (max < 0 || max > 10) {
       result = false;
-      std::cout << "Please enter a non-negative whole number.";
+      std::cout << "Please enter a whole number between 0 and 10.";
     }
     return result;
   };
@@ -48,9 +48,9 @@ using namespace std;
   bool CliValidate::polyCount(int count) {
     bool result;
     result = true;
-    if (count < 1) {
+    if (count < 1 || count > 10) {
       result = false;
-      std::cout << "Please enter a number greater than or equal to 1.";
+      std::cout << "Please enter a whole number between 1 and 10... ";
     }
     return result;
   };

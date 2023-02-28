@@ -3,16 +3,13 @@
 #include<vector>
 #include "CliGet.h"
 using namespace std;
-
   // https://www.learncpp.com/cpp-tutorial/stdcin-and-handling-invalid-input/
   // TODO: use template to dry this out
   double CliGet::cliDouble() {
     while (true) { // Loop until user enters a valid input
-      std::cout << "Enter a double value: ";
       double x{};
       std::cin >> x;
 
-      // Check for failed extraction
       if (!std::cin) {// has a previous extraction failed?
           // handle failure
           std::cin.clear(); // put back in 'normal' operation mode
@@ -26,16 +23,13 @@ using namespace std;
   }
 
   int CliGet::cliInt() {
-    while (true) { // Loop until user enters a valid input
-      std::cout << "Enter a integer value: ";
+    while (true) {
       int x{};
       std::cin >> x;
 
-      // Check for failed extraction
-      if (!std::cin) {// has a previous extraction failed?
-        // handle failure
-        std::cin.clear(); // put back in 'normal' operation mode
-        ignoreLine(); // remove the bad input
+      if (!std::cin) {
+        std::cin.clear();
+        ignoreLine();
         std::cerr << "Oops, that input is invalid.  Please try again.\n";
       } else {
           ignoreLine(); // remove any extraneous input
@@ -50,10 +44,9 @@ using namespace std;
       char x{};
       std::cin >> x;
 
-      // Check for failed extraction
-      if (!std::cin || (x != 'y' && x != 'n')) { // has a previous extraction failed?
-          // handle failure
-        std::cin.clear(); // put back in 'normal' operation mode
+    
+      if (!std::cin || (x != 'y' && x != 'n')) {
+        std::cin.clear();
         ignoreLine(); // remove the bad input
         std::cerr << "Oops, that input is invalid.  Please try again.\n";
       } else {
