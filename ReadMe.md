@@ -1,5 +1,5 @@
 # Polynomial Console Graph
-
+## [GH Project](https://github.com/users/nathanielBellamy/projects/3/views/1)
 ### Graph Polynomials in your Terminal
 
 ![intro_graph](intro_graph.png "Maclaurin Polynomials for ±sin\(x\)")
