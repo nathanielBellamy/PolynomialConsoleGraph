@@ -1,6 +1,6 @@
 #makefile
 
-CC = g++ -std=c++11
+CC = g++ -std=c++20
 CFLAGS=-c -Wall
 SOURCES = Main.cpp Cli.cpp CliGet.cpp CliValidate.cpp Compute.cpp Draw.cpp Settings.cpp
 OBJS = $(SOURCES:.cpp=.o)
