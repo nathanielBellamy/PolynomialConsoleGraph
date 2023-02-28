@@ -2,6 +2,8 @@
 
 ### Graph Polynomials in your Terminal
 
+![intro_graph](intro_graph.png "Maclaurin Polynomials for ±sin\(x\)")
+
 ### To Run
 
 - Build by running `make` in `src/`
