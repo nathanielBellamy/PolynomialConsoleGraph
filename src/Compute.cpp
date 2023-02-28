@@ -25,8 +25,8 @@ using namespace std;
   };
 
   vector<vector<double> > Compute::computeImageArray(vector<vector<double> > polynomialArray,
-                                                    vector<vector<double> > imageArray,
-                                                    Settings settings) {
+                                                     vector<vector<double> > imageArray,
+                                                     Settings settings) {
     double stepWidth = Settings::stepWidth(settings);
     for (int i = 0; i < polynomialArray.size(); i++) {
       vector<double> thisPolynomial = polynomialArray.at(i);
