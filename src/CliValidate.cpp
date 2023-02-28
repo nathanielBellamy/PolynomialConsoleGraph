@@ -13,7 +13,7 @@ using namespace std;
       std::cout << "Please ensure sure the min you enter is less than the max.";
     }
     return result;
-  }
+  };
 
   bool CliValidate::displaySize(int size) {
     bool result;
@@ -43,7 +43,7 @@ using namespace std;
       std::cout << "Please enter a non-negative whole number.";
     }
     return result;
-  }
+  };
 
   bool CliValidate::polyCount(int count) {
     bool result;
@@ -53,4 +53,4 @@ using namespace std;
       std::cout << "Please enter a number greater than or equal to 1.";
     }
     return result;
-  }
+  };

@@ -12,12 +12,10 @@ using namespace std;
 		std::string row = " ";
 
     double stepWidth = Settings::stepWidth(settings);
-		for (int t = 0;  t < settings.displayWidth; t++)
-		{
+		for (int t = 0;  t < settings.displayWidth; t++) {
 			x = (t * stepWidth) + settings.xMin;
 			vector<double> imageOfX(imageArray.size(), 0);
-			for (int k = 0; k < imageArray.size(); k++)
-			{
+			for (int k = 0; k < imageArray.size(); k++) {
 				imageOfX.at(k) = imageArray.at(k).at(t);
 			}
 			row += determineCharacterToRender(imageOfX, x, y, settings);
@@ -38,8 +36,7 @@ using namespace std;
 		imageArray = compute.computeImageArray(polynomialArray, imageArray, settings);
 		
     double stepHeight = Settings::stepHeight(settings);
-		for (int s = settings.displayHeight; s > -1; s--)
-		{
+		for (int s = settings.displayHeight; s > -1; s--) {
 			y = (s * stepHeight) + settings.yMin;
 			std::cout << createRow(imageArray, y, settings);
 		}
@@ -49,31 +46,23 @@ char Draw::determineCharacterToRender(vector<double> imageOfX, double x, double 
 		Compute compute;
     double stepWidth = Settings::stepWidth(settings);
     double stepHeight = Settings::stepHeight(settings);
-		for (int i = 0; i < imageOfX.size(); i++)
-		{
+		for (int i = 0; i < imageOfX.size(); i++) {
 			char backgroundChar = settings.backgroundChar;
 			int indexToPrint = compute.minimumIndexWithinYPlusEpsilon(imageOfX, y, settings);
-			if (indexToPrint > -1)
-			{
+			if (indexToPrint > -1) {
 				return '0' + indexToPrint;
 			}
-			else
-			{
-				if (abs(y) < stepHeight/2)
-				{
-					if (abs(x) < stepWidth/2)
-					{
+			else {
+				if (abs(y) < stepHeight/2) {
+					if (abs(x) < stepWidth/2) {
 						backgroundChar = settings.originChar;
 					}
-					else
-					{
+					else {
 						backgroundChar = settings.xAxisChar;
 					}
 				}
-				else
-				{
-					if (abs(x) < stepWidth/2)
-					{
+				else {
+					if (abs(x) < stepWidth/2) {
 						backgroundChar = settings.yAxisChar;
 					}
 				}

@@ -47,7 +47,7 @@ using namespace std;
 
   void Cli::outro() {
     std::cout << "\n========== Thanks for stopping by! ==========";
-  }
+  };
 
   void Cli::setDisplaySize(Settings &settings) {
     CliGet get;

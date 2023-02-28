@@ -13,15 +13,12 @@ using namespace std;
       std::cin >> x;
 
       // Check for failed extraction
-      if (!std::cin) // has a previous extraction failed?
-      {
+      if (!std::cin) {// has a previous extraction failed?
           // handle failure
           std::cin.clear(); // put back in 'normal' operation mode
           ignoreLine(); // remove the bad input
           std::cerr << "Oops, that input is invalid.  Please try again.\n";
-      }
-      else
-      {
+      } else {
           ignoreLine(); // remove any extraneous input
           return x;
       }
@@ -35,15 +32,12 @@ using namespace std;
       std::cin >> x;
 
       // Check for failed extraction
-      if (!std::cin) // has a previous extraction failed?
-      {
-          // handle failure
-          std::cin.clear(); // put back in 'normal' operation mode
-          ignoreLine(); // remove the bad input
-          std::cerr << "Oops, that input is invalid.  Please try again.\n";
-      }
-      else
-      {
+      if (!std::cin) {// has a previous extraction failed?
+        // handle failure
+        std::cin.clear(); // put back in 'normal' operation mode
+        ignoreLine(); // remove the bad input
+        std::cerr << "Oops, that input is invalid.  Please try again.\n";
+      } else {
           ignoreLine(); // remove any extraneous input
           return x;
       }
@@ -57,15 +51,12 @@ using namespace std;
       std::cin >> x;
 
       // Check for failed extraction
-      if (!std::cin || (x != 'y' && x != 'n')) // has a previous extraction failed?
-      {
+      if (!std::cin || (x != 'y' && x != 'n')) { // has a previous extraction failed?
           // handle failure
-          std::cin.clear(); // put back in 'normal' operation mode
-          ignoreLine(); // remove the bad input
-          std::cerr << "Oops, that input is invalid.  Please try again.\n";
-      }
-      else
-      {
+        std::cin.clear(); // put back in 'normal' operation mode
+        ignoreLine(); // remove the bad input
+        std::cerr << "Oops, that input is invalid.  Please try again.\n";
+      } else {
           ignoreLine(); // remove any extraneous input
           return x == 'y';
       }
