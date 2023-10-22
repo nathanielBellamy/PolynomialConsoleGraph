@@ -17,6 +17,7 @@ class Settings {
 		static int xStepCount(Settings settings);
     static double stepWidth(Settings settings);
     static double stepHeight(Settings settings);
+    static bool pieceWise;
 };
 
 #endif

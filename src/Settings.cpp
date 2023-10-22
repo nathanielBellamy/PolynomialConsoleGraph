@@ -13,6 +13,7 @@ using namespace std;
 	double Settings::epsilon = 0.1;
   int Settings::displayWidth = 80;
   int Settings::displayHeight = 30;
+  bool Settings::pieceWise = false;
 
   double Settings::stepWidth(Settings settings) {
     return (settings.xMax - settings.xMin)/settings.displayWidth;

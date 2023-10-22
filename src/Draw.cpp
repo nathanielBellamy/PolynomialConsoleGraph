@@ -7,7 +7,8 @@
 #include "Settings.h"
 using namespace std;
 
-  std::string Draw::createRow(vector<vector<double> > imageArray, double y, Settings settings) {
+  std::string Draw::createRow(vector<vector<double> > imageArray, double y, Settings settings) 
+  {
 		double x;
 		std::string row = " ";
 
@@ -23,7 +24,8 @@ using namespace std;
 		return row + " \r\n";
 	};
 
-  void Draw::render(vector<vector<double> > polynomialArray, Settings settings) {
+  void Draw::render(vector<vector<double> > polynomialArray, Settings settings) 
+  {
 		Compute compute;
 		double y;
 		std::string margin = " ";
@@ -42,27 +44,63 @@ using namespace std;
 		}
 	};
 
-char Draw::determineCharacterToRender(vector<double> imageOfX, double x, double y, Settings settings) {
+  void Draw::renderPiecewise(vector<vector<double> > polynomialArray, Settings settings) 
+  {
+		Compute compute;
+		double y;
+		std::string margin = " ";
+		std::string output;
+
+    int xStepCount = Settings::xStepCount(settings);
+		vector<double> image;
+		image = compute.piecewsieImage(polynomialArray, settings);
+		
+    double stepHeight = Settings::stepHeight(settings);
+		for (int s = settings.displayHeight; s > -1; s--) {
+			y = (s * stepHeight) + settings.yMin;
+			std::cout << createRowPiecewise(image, y, settings);
+		}
+    
+
+  }
+
+  char Draw::determineCharacterToRender(vector<double> imageOfX, double x, double y, Settings settings) 
+  {
 		Compute compute;
     double stepWidth = Settings::stepWidth(settings);
     double stepHeight = Settings::stepHeight(settings);
 		for (int i = 0; i < imageOfX.size(); i++) {
 			char backgroundChar = settings.backgroundChar;
-			int indexToPrint = compute.minimumIndexWithinYPlusEpsilon(imageOfX, y, settings);
-			if (indexToPrint > -1) {
+			int indexToPrint;
+      if (settings.pieceWise) 
+      {
+        indexToPrint = compute.piecewiseIntervalIndex(x, )
+      }
+      else
+      {
+        indexToPrint = compute.minimumIndexWithinYPlusEpsilon(imageOfX, y, settings);
+      }
+			if (indexToPrint > -1) 
+      {
 				return '0' + indexToPrint;
 			}
-			else {
-				if (abs(y) < stepHeight/2) {
-					if (abs(x) < stepWidth/2) {
+			else 
+      {
+				if (abs(y) < stepHeight/2) 
+        {
+					if (abs(x) < stepWidth/2) 
+          {
 						backgroundChar = settings.originChar;
 					}
-					else {
+					else 
+          {
 						backgroundChar = settings.xAxisChar;
 					}
 				}
-				else {
-					if (abs(x) < stepWidth/2) {
+				else 
+        {
+					if (abs(x) < stepWidth/2) 
+          {
 						backgroundChar = settings.yAxisChar;
 					}
 				}
