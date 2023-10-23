@@ -11,7 +11,7 @@ class Draw {
 		static void render(vector<vector<double> > polynomialArray, Settings settings);
     static void renderPiecewise(vector<vector<double> > polynomialArray, Settings settings);
 		static char determineCharacterToRender(vector<double> imageOfX, double x, double y, Settings settings);
-    static char determineCharacterToRenderPiecewise(vector<double> image, double x, double y, Settings settings);
+    static char determineCharacterToRenderPiecewise(vector<double> image, int t, double x, double y, Settings settings);
 };
 
 #endif

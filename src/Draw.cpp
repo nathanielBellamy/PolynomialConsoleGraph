@@ -35,7 +35,7 @@ using namespace std;
     for (int t = 0; t < settings.displayWidth; t++)
     {
       x = (t * stepWidth) + settings.xMin;
-      row += determineCharacterToRenderPiecewise(image, x, y, settings);
+      row += determineCharacterToRenderPiecewise(image, t, x, y, settings);
     }
 
     return row + " \r\n";
@@ -118,40 +118,37 @@ using namespace std;
 		return settings.backgroundChar;
 	};
 
-  char Draw::determineCharacterToRenderPiecewise(vector<double> image, double x, double y, Settings settings) 
+  char Draw::determineCharacterToRenderPiecewise(vector<double> image, int t, double x, double y, Settings settings) 
   {
 		Compute compute;
     double stepWidth = Settings::stepWidth(settings);
     double stepHeight = Settings::stepHeight(settings);
-		for (int i = 0; i < image.size(); i++) {
-			char backgroundChar = settings.backgroundChar;
-			if ( compute.withinEpsilon(image, i, y, settings) ) 
+    char backgroundChar = settings.backgroundChar;
+    if ( compute.withinEpsilon(image, t, y, settings) ) 
+    {
+      return '#';
+    }
+    else 
+    {
+      if (abs(y) < stepHeight/2) 
       {
-				return '#';
-			}
-			else 
+        if (abs(x) < stepWidth/2) 
+        {
+          backgroundChar = settings.originChar;
+        }
+        else 
+        {
+          backgroundChar = settings.xAxisChar;
+        }
+      }
+      else 
       {
-				if (abs(y) < stepHeight/2) 
+        if (abs(x) < stepWidth/2) 
         {
-					if (abs(x) < stepWidth/2) 
-          {
-						backgroundChar = settings.originChar;
-					}
-					else 
-          {
-						backgroundChar = settings.xAxisChar;
-					}
-				}
-				else 
-        {
-					if (abs(x) < stepWidth/2) 
-          {
-						backgroundChar = settings.yAxisChar;
-					}
-				}
-				return backgroundChar;
-			}
-		}	
+          backgroundChar = settings.yAxisChar;
+        }
+      }
+      return backgroundChar;
+    }
 		return settings.backgroundChar;
-
   };

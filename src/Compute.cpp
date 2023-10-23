@@ -23,16 +23,16 @@ using namespace std;
   vector<double> Compute::piecewsieImage(vector<vector<double> > polynomialArray, Settings settings)
   {
     int xStepCount = Settings::xStepCount(settings);
+    int stepWidth = Settings::stepWidth(settings);
     vector<double> res(xStepCount, 0);
     int polynomialCount = polynomialArray.size();
 
-    int currPolynomialIndex;
     if (xStepCount <= polynomialCount)
     {
       // do as many as you can in single width columns
       for (int i = 0; i < xStepCount; i++)
       {
-        double x = settings.xMin + i * xStepCount;
+        double x = settings.xMin + i * stepWidth;
         res.at(i) = execute(polynomialArray.at(i), x);
       }
     }
@@ -41,17 +41,16 @@ using namespace std;
       // TODO
       for (int i = 0; i < xStepCount; i++)
       {
-        double x = settings.xMin + i * xStepCount;
-
+        double x = settings.xMin + i * stepWidth;
         int quotient = std::floor((1.0 * xStepCount) / (1.0 * polynomialCount));
         int remainder = xStepCount % polynomialCount;
         vector<int> stepsPerPolynomial(polynomialCount, quotient);
 
         // add remainder steps to middle intervals
         int extraMidFirstIndex = std::floor((polynomialCount - remainder) / 2.0);
-        for (i = extraMidFirstIndex; i < remainder; i++)
+        for (i = 0; i < remainder; i++)
         {
-          stepsPerPolynomial.at(i) += 1;
+          stepsPerPolynomial.at(extraMidFirstIndex + i) += 1;
         }
 
         // compute which polynomial to use at each x step
