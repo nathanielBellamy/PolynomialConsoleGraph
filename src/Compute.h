@@ -11,6 +11,7 @@ class Compute {
 		static vector<vector<double> > computeImageArray(vector<vector<double> > polynomialArray, vector<vector<double> > imageArray, Settings settings);
 	  static vector<double> piecewsieImage(vector<vector<double> > polynomialArray, Settings settings);
 		static int minimumIndexWithinYPlusEpsilon(vector<double> imageOfX, double y, Settings settings);
+    static bool withinEpsilon(vector<double> image, int i, double y, Settings setting);
 };
 
 #endif

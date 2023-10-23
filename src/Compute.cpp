@@ -6,12 +6,18 @@
 #include "Settings.h"
 using namespace std;
 
-  double Compute::execute(vector<double> polynomial, double x) {
+  double Compute::execute(vector<double> polynomial, double x) 
+  {
     double output = 0.0;
     for (int i = polynomial.size()-1; i > -1; --i) { 
       output += polynomial.at(i) * pow(x, i);
     }
     return output;
+  };
+
+  bool Compute::withinEpsilon(vector<double> image, int i, double y, Settings settings)
+  {
+    return abs(image[i] - y) < settings.epsilon;
   };
 
   vector<double> Compute::piecewsieImage(vector<vector<double> > polynomialArray, Settings settings)
