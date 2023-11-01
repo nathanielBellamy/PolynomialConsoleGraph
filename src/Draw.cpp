@@ -31,6 +31,8 @@ using namespace std;
     double x;
     std::string row = " ";
 
+    // TODO:
+    // - centralize computation of stepWidth 
     double stepWidth = Settings::stepWidth(settings);
     for (int t = 0; t < settings.displayWidth; t++)
     {
@@ -74,6 +76,9 @@ using namespace std;
     double stepHeight = Settings::stepHeight(settings);
 		for (int s = settings.displayHeight; s > -1; s--) {
 			y = (s * stepHeight) + settings.yMin;
+      // TODO:
+      //   - store the result
+      //   - update changes
 			std::cout << createRowPiecewise(image, y, settings);
 		}
   }
@@ -121,15 +126,17 @@ using namespace std;
   char Draw::determineCharacterToRenderPiecewise(vector<double> image, int t, double x, double y, Settings settings) 
   {
 		Compute compute;
+    // TODO:
+    // - these should be computed once and not everytime we need a character  
     double stepWidth = Settings::stepWidth(settings);
     double stepHeight = Settings::stepHeight(settings);
-    char backgroundChar = settings.backgroundChar;
     if ( compute.withinEpsilon(image, t, y, settings) ) 
     {
       return '#';
     }
     else 
     {
+      char backgroundChar = settings.backgroundChar;
       if (abs(y) < stepHeight/2) 
       {
         if (abs(x) < stepWidth/2) 
@@ -150,5 +157,4 @@ using namespace std;
       }
       return backgroundChar;
     }
-		return settings.backgroundChar;
   };
