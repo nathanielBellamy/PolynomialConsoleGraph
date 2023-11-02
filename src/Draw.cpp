@@ -26,15 +26,15 @@ using namespace std;
 		return row + " \r\n";
 	};
   
-  std::string Draw::createRowPiecewise(vector<double> image, double y, Settings settings)
+  std::string Draw::createRowPiecewise(vector<double> image, double y, Settings *settings)
   {
     double x;
     std::string row = " ";
 
-    double stepWidth = settings.stepWidth;
-    for (int t = 0; t < settings.displayWidth; t++)
+    double stepWidth = settings->stepWidth;
+    for (int t = 0; t < settings->displayWidth; t++)
     {
-      x = (t * stepWidth) + settings.xMin;
+      x = (t * stepWidth) + settings->xMin;
       row += determineCharacterToRenderPiecewise(image, t, x, y, settings);
     }
 
@@ -61,7 +61,7 @@ using namespace std;
 		}
 	};
 
-  void Draw::renderPiecewise(vector<vector<double> > polynomialArray, Settings settings) 
+  void Draw::renderPiecewise(vector<vector<double> > polynomialArray, Settings *settings) 
   {
 		Compute compute;
 		double y;
@@ -71,9 +71,9 @@ using namespace std;
 		vector<double> image;
 		image = compute.piecewsieImage(polynomialArray, settings);
 		
-    double stepHeight = Compute::stepHeight(&settings);
-		for (int s = settings.displayHeight; s > -1; s--) {
-			y = (s * stepHeight) + settings.yMin;
+    double stepHeight = Compute::stepHeight(settings);
+		for (int s = settings->displayHeight; s > -1; s--) {
+			y = (s * stepHeight) + settings->yMin;
       // TODO:
       //   - store the result
       //   - update changes
@@ -89,7 +89,7 @@ using namespace std;
 		for (int i = 0; i < imageOfX.size(); i++) {
 			char backgroundChar = settings.backgroundChar;
 			int indexToPrint;
-      indexToPrint = compute.minimumIndexWithinYPlusEpsilon(imageOfX, y, settings);
+      indexToPrint = compute.minimumIndexWithinYPlusEpsilon(imageOfX, y, &settings);
 			
       if (indexToPrint > -1) 
       {
@@ -121,34 +121,34 @@ using namespace std;
 		return settings.backgroundChar;
 	};
 
-  char Draw::determineCharacterToRenderPiecewise(vector<double> image, int t, double x, double y, Settings settings) 
+  char Draw::determineCharacterToRenderPiecewise(vector<double> image, int t, double x, double y, Settings *settings) 
   {
 		Compute compute;
-    double stepHeight = settings.stepHeight;
-    double stepWidth = settings.stepWidth;
+    double stepHeight = settings->stepHeight;
+    double stepWidth = settings->stepWidth;
     if ( compute.withinEpsilon(image, t, y, settings) ) 
     {
       return '#';
     }
     else 
     {
-      char backgroundChar = settings.backgroundChar;
+      char backgroundChar = settings->backgroundChar;
       if (abs(y) < stepHeight/2) 
       {
         if (abs(x) < stepWidth/2) 
         {
-          backgroundChar = settings.originChar;
+          backgroundChar = settings->originChar;
         }
         else 
         {
-          backgroundChar = settings.xAxisChar;
+          backgroundChar = settings->xAxisChar;
         }
       }
       else 
       {
         if (abs(x) < stepWidth/2) 
         {
-          backgroundChar = settings.yAxisChar;
+          backgroundChar = settings->yAxisChar;
         }
       }
       return backgroundChar;

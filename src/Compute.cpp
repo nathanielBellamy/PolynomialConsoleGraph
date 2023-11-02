@@ -15,15 +15,15 @@ using namespace std;
     return output;
   };
 
-  bool Compute::withinEpsilon(vector<double> image, int i, double y, Settings settings)
+  bool Compute::withinEpsilon(vector<double> image, int i, double y, Settings *settings)
   {
-    return abs(image[i] - y) < settings.epsilon;
+    return abs(image[i] - y) < settings->epsilon;
   };
 
-  vector<double> Compute::piecewsieImage(vector<vector<double> > polynomialArray, Settings settings)
+  vector<double> Compute::piecewsieImage(vector<vector<double> > polynomialArray, Settings *settings)
   {
-    int xStepCount = Compute::xStepCount(&settings);
-    int stepWidth = Compute::stepWidth(&settings);
+    int xStepCount = Compute::xStepCount(settings);
+    int stepWidth = Compute::stepWidth(settings);
     vector<double> res(xStepCount, 0);
     int polynomialCount = polynomialArray.size();
 
@@ -32,7 +32,7 @@ using namespace std;
       // do as many as you can in single width columns
       for (int i = 0; i < xStepCount; i++)
       {
-        double x = settings.xMin + i * stepWidth;
+        double x = settings->xMin + i * stepWidth;
         res.at(i) = execute(polynomialArray.at(i), x);
       }
     }
@@ -41,7 +41,7 @@ using namespace std;
       // TODO
       for (int i = 0; i < xStepCount; i++)
       {
-        double x = settings.xMin + i * stepWidth;
+        double x = settings->xMin + i * stepWidth;
         int quotient = std::floor((1.0 * xStepCount) / (1.0 * polynomialCount));
         int remainder = xStepCount % polynomialCount;
         vector<int> stepsPerPolynomial(polynomialCount, quotient);
@@ -77,11 +77,11 @@ using namespace std;
     return res;
   };
 
-  int Compute::minimumIndexWithinYPlusEpsilon(vector<double> imageOfX, double y, Settings settings) {
+  int Compute::minimumIndexWithinYPlusEpsilon(vector<double> imageOfX, double y, Settings *settings) {
     for (int i = 0; i < imageOfX.size(); i++) 
     { 
       double pointOnGraph = imageOfX.at(i);
-      if (abs(pointOnGraph - y) < settings.epsilon)
+      if (abs(pointOnGraph - y) < settings->epsilon)
       {
         return i;
       }
