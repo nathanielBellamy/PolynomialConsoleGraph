@@ -11,12 +11,12 @@ class Settings {
 		static double xMax;
 		static double yMin;
 		static double yMax;
-		static int	displayWidth;
 		static int	displayHeight;
+		static int	displayWidth;
+		static double stepHeight;
+    static double stepWidth;
+    static int xStepCount;
     static double epsilon;
-		static int xStepCount(Settings settings);
-    static double stepWidth(Settings settings);
-    static double stepHeight(Settings settings);
     static bool pieceWise;
 };
 

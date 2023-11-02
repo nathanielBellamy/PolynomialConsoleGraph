@@ -12,7 +12,7 @@ using namespace std;
 		double x;
 		std::string row = " ";
 
-    double stepWidth = Settings::stepWidth(settings);
+    double stepWidth = Compute::stepWidth(settings);
 		for (int t = 0;  t < settings.displayWidth; t++) 
     {
 			x = (t * stepWidth) + settings.xMin;
@@ -31,9 +31,7 @@ using namespace std;
     double x;
     std::string row = " ";
 
-    // TODO:
-    // - centralize computation of stepWidth 
-    double stepWidth = Settings::stepWidth(settings);
+    double stepWidth = settings.stepWidth;
     for (int t = 0; t < settings.displayWidth; t++)
     {
       x = (t * stepWidth) + settings.xMin;
@@ -50,13 +48,13 @@ using namespace std;
 		std::string margin = " ";
 		std::string output;
 
-    int xStepCount = Settings::xStepCount(settings);
-		vector<double> imageOfZeroFunction(xStepCount+1, 0);
+    int xStepCount = settings.xStepCount;
+    vector<double> imageOfZeroFunction(xStepCount+1, 0);
 		vector<vector<double> > imageArray(polynomialArray.size(), imageOfZeroFunction);
 
 		imageArray = compute.computeImageArray(polynomialArray, imageArray, settings);
 		
-    double stepHeight = Settings::stepHeight(settings);
+    double stepHeight = Compute::stepHeight(settings);
 		for (int s = settings.displayHeight; s > -1; s--) {
 			y = (s * stepHeight) + settings.yMin;
 			std::cout << createRow(imageArray, y, settings);
@@ -73,7 +71,7 @@ using namespace std;
 		vector<double> image;
 		image = compute.piecewsieImage(polynomialArray, settings);
 		
-    double stepHeight = Settings::stepHeight(settings);
+    double stepHeight = Compute::stepHeight(settings);
 		for (int s = settings.displayHeight; s > -1; s--) {
 			y = (s * stepHeight) + settings.yMin;
       // TODO:
@@ -86,8 +84,8 @@ using namespace std;
   char Draw::determineCharacterToRender(vector<double> imageOfX, double x, double y, Settings settings) 
   {
 		Compute compute;
-    double stepWidth = Settings::stepWidth(settings);
-    double stepHeight = Settings::stepHeight(settings);
+    double stepWidth = settings.stepWidth; 
+    double stepHeight = settings.stepHeight;
 		for (int i = 0; i < imageOfX.size(); i++) {
 			char backgroundChar = settings.backgroundChar;
 			int indexToPrint;
@@ -126,10 +124,8 @@ using namespace std;
   char Draw::determineCharacterToRenderPiecewise(vector<double> image, int t, double x, double y, Settings settings) 
   {
 		Compute compute;
-    // TODO:
-    // - these should be computed once and not everytime we need a character  
-    double stepWidth = Settings::stepWidth(settings);
-    double stepHeight = Settings::stepHeight(settings);
+    double stepHeight = settings.stepHeight;
+    double stepWidth = settings.stepWidth;
     if ( compute.withinEpsilon(image, t, y, settings) ) 
     {
       return '#';
