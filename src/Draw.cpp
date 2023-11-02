@@ -12,7 +12,7 @@ using namespace std;
 		double x;
 		std::string row = " ";
 
-    double stepWidth = Compute::stepWidth(settings);
+    double stepWidth = Compute::stepWidth(&settings);
 		for (int t = 0;  t < settings.displayWidth; t++) 
     {
 			x = (t * stepWidth) + settings.xMin;
@@ -54,7 +54,7 @@ using namespace std;
 
 		imageArray = compute.computeImageArray(polynomialArray, imageArray, settings);
 		
-    double stepHeight = Compute::stepHeight(settings);
+    double stepHeight = Compute::stepHeight(&settings);
 		for (int s = settings.displayHeight; s > -1; s--) {
 			y = (s * stepHeight) + settings.yMin;
 			std::cout << createRow(imageArray, y, settings);
@@ -71,7 +71,7 @@ using namespace std;
 		vector<double> image;
 		image = compute.piecewsieImage(polynomialArray, settings);
 		
-    double stepHeight = Compute::stepHeight(settings);
+    double stepHeight = Compute::stepHeight(&settings);
 		for (int s = settings.displayHeight; s > -1; s--) {
 			y = (s * stepHeight) + settings.yMin;
       // TODO:

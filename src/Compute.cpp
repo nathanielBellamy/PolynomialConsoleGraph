@@ -22,8 +22,8 @@ using namespace std;
 
   vector<double> Compute::piecewsieImage(vector<vector<double> > polynomialArray, Settings settings)
   {
-    int xStepCount = Compute::xStepCount(settings);
-    int stepWidth = Compute::stepWidth(settings);
+    int xStepCount = Compute::xStepCount(&settings);
+    int stepWidth = Compute::stepWidth(&settings);
     vector<double> res(xStepCount, 0);
     int polynomialCount = polynomialArray.size();
 
@@ -92,10 +92,10 @@ using namespace std;
   vector<vector<double> > Compute::computeImageArray(vector<vector<double> > polynomialArray,
                                                      vector<vector<double> > imageArray,
                                                      Settings settings) {
-    double stepWidth = Compute::stepWidth(settings);
+    double stepWidth = Compute::stepWidth(&settings);
     for (int i = 0; i < polynomialArray.size(); i++) {
       vector<double> thisPolynomial = polynomialArray.at(i);
-      int xStepCount = Compute::xStepCount(settings);
+      int xStepCount = Compute::xStepCount(&settings);
       for (int j = 0; j <= xStepCount; j++) {
         double x = settings.xMin + j * stepWidth; // j = (x - xMin)/stepWidth
         imageArray.at(i).at(j) = execute(thisPolynomial, x);    
@@ -105,14 +105,14 @@ using namespace std;
   };
 
 
-  double Compute::stepWidth(Settings settings) {
-    return (settings.xMax - settings.xMin)/settings.displayWidth;
+  double Compute::stepWidth(Settings *settings) {
+    return (settings->xMax - settings->xMin)/settings->displayWidth;
   }
 
-  double Compute::stepHeight(Settings settings) {
-    return (settings.yMax - settings.yMin)/settings.displayHeight;
+  double Compute::stepHeight(Settings *settings) {
+    return (settings->yMax - settings->yMin)/settings->displayHeight;
   }
 
-  int Compute::xStepCount(Settings settings) {
-    return (settings.xMax - settings.xMin) / settings.stepWidth;
+  int Compute::xStepCount(Settings *settings) {
+    return (settings->xMax - settings->xMin) / settings->stepWidth;
   }
