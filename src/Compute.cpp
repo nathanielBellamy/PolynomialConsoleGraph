@@ -22,28 +22,26 @@ using namespace std;
 
   vector<double> Compute::piecewsieImage(vector<vector<double> > polynomialArray, Settings *settings)
   {
-    int xStepCount = Compute::xStepCount(settings);
-    int stepWidth = Compute::stepWidth(settings);
-    vector<double> res(xStepCount, 0);
+    vector<double> res(settings->xStepCount, 0);
     int polynomialCount = polynomialArray.size();
 
-    if (xStepCount <= polynomialCount)
+    if (settings->xStepCount <= polynomialCount)
     {
       // do as many as you can in single width columns
-      for (int i = 0; i < xStepCount; i++)
+      for (int i = 0; i < settings->xStepCount; i++)
       {
-        double x = settings->xMin + i * stepWidth;
+        double x = settings->xMin + i * settings->stepWidth;
         res.at(i) = execute(polynomialArray.at(i), x);
       }
     }
     else
     {
       // TODO
-      for (int i = 0; i < xStepCount; i++)
+      for (int i = 0; i < settings->xStepCount; i++)
       {
-        double x = settings->xMin + i * stepWidth;
-        int quotient = std::floor((1.0 * xStepCount) / (1.0 * polynomialCount));
-        int remainder = xStepCount % polynomialCount;
+        double x = settings->xMin + i * settings->stepWidth;
+        int quotient = std::floor((1.0 * settings->xStepCount) / (1.0 * polynomialCount));
+        int remainder = settings->xStepCount % polynomialCount;
         vector<int> stepsPerPolynomial(polynomialCount, quotient);
 
         // add remainder steps to middle intervals
@@ -54,7 +52,7 @@ using namespace std;
         }
 
         // compute which polynomial to use at each x step
-        vector<int> polynomialAtStep(xStepCount, 0);
+        vector<int> polynomialAtStep(settings->xStepCount, 0);
         int pasIndex = 0;
         for (i = 0; i < polynomialCount; i++)
         {
@@ -67,7 +65,7 @@ using namespace std;
         }
 
         // execute correct polynomial at each x step 
-        for (i = 0; i < xStepCount; i++)
+        for (i = 0; i < settings->xStepCount; i++)
         {
           res.at(i) = execute(polynomialArray.at(polynomialAtStep.at(i)), x);
         }

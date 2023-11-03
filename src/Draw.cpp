@@ -63,17 +63,15 @@ using namespace std;
 
   void Draw::renderPiecewise(vector<vector<double> > polynomialArray, Settings *settings) 
   {
-		Compute compute;
 		double y;
 		std::string margin = " ";
 		std::string output;
 
 		vector<double> image;
-		image = compute.piecewsieImage(polynomialArray, settings);
+		image = Compute::piecewsieImage(polynomialArray, settings);
 		
-    double stepHeight = Compute::stepHeight(settings);
 		for (int s = settings->displayHeight; s > -1; s--) {
-			y = (s * stepHeight) + settings->yMin;
+			y = (s * settings->stepHeight) + settings->yMin;
       // TODO:
       //   - store the result
       //   - update changes
@@ -123,19 +121,16 @@ using namespace std;
 
   char Draw::determineCharacterToRenderPiecewise(vector<double> image, int t, double x, double y, Settings *settings) 
   {
-		Compute compute;
-    double stepHeight = settings->stepHeight;
-    double stepWidth = settings->stepWidth;
-    if ( compute.withinEpsilon(image, t, y, settings) ) 
+    if ( Compute::withinEpsilon(image, t, y, settings) ) 
     {
       return '#';
     }
     else 
     {
       char backgroundChar = settings->backgroundChar;
-      if (abs(y) < stepHeight/2) 
+      if (abs(y) < settings->stepHeight/2) 
       {
-        if (abs(x) < stepWidth/2) 
+        if (abs(x) < settings->stepWidth/2) 
         {
           backgroundChar = settings->originChar;
         }
@@ -146,7 +141,7 @@ using namespace std;
       }
       else 
       {
-        if (abs(x) < stepWidth/2) 
+        if (abs(x) < settings->stepWidth/2) 
         {
           backgroundChar = settings->yAxisChar;
         }
