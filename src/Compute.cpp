@@ -36,7 +36,6 @@ using namespace std;
     }
     else
     {
-      // TODO
       for (int i = 0; i < settings->xStepCount; i++)
       {
         double x = settings->xMin + i * settings->stepWidth;
