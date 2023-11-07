@@ -26,19 +26,23 @@ using namespace std;
 		return row + " \r\n";
 	};
   
-  std::string Draw::createRowPiecewise(vector<double> image, double y, Settings *settings)
+  void Draw::createRowPiecewise(
+    float *image, 
+    int rowIndex, 
+    Settings *settings,
+    char (*graphNext)[30][80]
+  )
   {
     double x;
-    std::string row = " ";
+    double y;
+		y = (rowIndex * settings->stepHeight) + settings->yMin;
 
     double stepWidth = settings->stepWidth;
-    for (int t = 0; t < settings->displayWidth; t++)
+    for (int j = 0; j < 80; j++) // column
     {
-      x = (t * stepWidth) + settings->xMin;
-      row += determineCharacterToRenderPiecewise(image, t, x, y, settings);
+      x = (j * stepWidth) + settings->xMin;
+      (*graphNext)[rowIndex][j] = determineCharacterToRenderPiecewise(image, j, x, y, settings);
     }
-
-    return row + " \r\n";
   }
 
   void Draw::render(vector<vector<double> > polynomialArray, Settings settings) 
@@ -61,23 +65,23 @@ using namespace std;
 		}
 	};
 
-  void Draw::renderPiecewise(vector<vector<double> > polynomialArray, Settings *settings) 
-  {
-		double y;
-		std::string margin = " ";
-		std::string output;
+  // void Draw::renderPiecewise(vector<vector<double> > polynomialArray, Settings *settings) 
+  // {
+		// double y;
+		// std::string margin = " ";
+		// std::string output;
 
-		vector<double> image;
-		image = Compute::piecewsieImage(polynomialArray, settings);
-		
-		for (int s = settings->displayHeight; s > -1; s--) {
-			y = (s * settings->stepHeight) + settings->yMin;
-      // TODO:
-      //   - store the result
-      //   - update changes
-			std::cout << createRowPiecewise(image, y, settings);
-		}
-  }
+		// vector<double> image;
+		// image = Compute::piecewsieImage(polynomialArray, settings);
+		// 
+		// for (int j = settings->displayHeight; s > -1; s--) {
+		// 	y = (s * settings->stepHeight) + settings->yMin;
+  //     // TODO:
+  //     //   - store the result
+  //     //   - update changes
+		// 	std::cout << createRowPiecewise(image, y, settings);
+		// }
+  // }
 
   char Draw::determineCharacterToRender(vector<double> imageOfX, double x, double y, Settings settings) 
   {
@@ -119,9 +123,9 @@ using namespace std;
 		return settings.backgroundChar;
 	};
 
-  char Draw::determineCharacterToRenderPiecewise(vector<double> image, int t, double x, double y, Settings *settings) 
+  char Draw::determineCharacterToRenderPiecewise(float *image, int j, double x, double y, Settings *settings) 
   {
-    if ( Compute::withinEpsilon(image, t, y, settings) ) 
+    if ( Compute::withinEpsilon_a(image, j, y, settings) ) 
     {
       return '#';
     }

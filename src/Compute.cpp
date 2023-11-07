@@ -20,6 +20,11 @@ using namespace std;
     return abs(image[i] - y) < settings->epsilon;
   };
 
+  bool Compute::withinEpsilon_a(float *image, int i, double y, Settings *settings)
+  {
+    return abs(image[i] - y) < settings->epsilon;
+  };
+
   vector<double> Compute::piecewsieImage(vector<vector<double> > polynomialArray, Settings *settings)
   {
     vector<double> res(settings->xStepCount, 0);
