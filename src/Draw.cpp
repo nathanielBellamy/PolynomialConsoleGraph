@@ -35,8 +35,7 @@ using namespace std;
   {
     double x;
     double y;
-		y = (rowIndex * settings->stepHeight) + settings->yMin;
-
+		y = ((double) rowIndex * settings->stepHeight) + settings->yMin;
     double stepWidth = settings->stepWidth;
     for (int j = 0; j < 80; j++) // column
     {
