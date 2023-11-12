@@ -8,7 +8,7 @@ class Draw {
 	public:
 		static std::string createRow(vector<vector<double> > imageArray, double y, Settings settings);
     static void createRowPiecewise(
-      float *, 
+      double (*image)[80], 
       int i, 
       Settings *settings,
       char (*graphNext)[30][80]
@@ -17,7 +17,7 @@ class Draw {
     static void renderPiecewise(vector<vector<double> > polynomialArray, Settings *settings);
 		static char determineCharacterToRender(vector<double> imageOfX, double x, double y, Settings settings);
     static char determineCharacterToRenderPiecewise(
-      float *image, 
+      double (*image)[80], 
       int t, 
       double x, 
       double y, 

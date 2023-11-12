@@ -27,7 +27,7 @@ using namespace std;
 	};
   
   void Draw::createRowPiecewise(
-    float *image, 
+    double (*image)[80], 
     int rowIndex, 
     Settings *settings,
     char (*graphNext)[30][80]
@@ -36,10 +36,10 @@ using namespace std;
     double x;
     double y;
 		y = ((double) rowIndex * settings->stepHeight) + settings->yMin;
-    double stepWidth = settings->stepWidth;
     for (int j = 0; j < 80; j++) // column
     {
-      x = (j * stepWidth) + settings->xMin;
+      // printf("\n immm %f", (*image)[j]);
+      x = (j * settings->stepWidth) + settings->xMin;
       (*graphNext)[rowIndex][j] = determineCharacterToRenderPiecewise(image, j, x, y, settings);
     }
   }
@@ -122,8 +122,11 @@ using namespace std;
 		return settings.backgroundChar;
 	};
 
-  char Draw::determineCharacterToRenderPiecewise(float *image, int j, double x, double y, Settings *settings) 
+  char Draw::determineCharacterToRenderPiecewise(double (*image)[80], int j, double x, double y, Settings *settings) 
   {
+    // printf("\nim: %f", (*image)[j]);
+    // printf("\ny: %f", y);
+    // printf("\n === \n");
     if ( Compute::withinEpsilon_a(image, j, y, settings) ) 
     {
       return '#';
