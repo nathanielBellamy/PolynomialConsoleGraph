@@ -32,19 +32,19 @@ using namespace std;
     return abs(image[i] - y) < settings->epsilon;
   };
 
-  bool Compute::withinEpsilon_a(double (*image)[80], int i, double y, Settings *settings)
+  bool Compute::withinEpsilon_a(double (*image)[64], int i, double y, Settings *settings)
   {
     return abs((*image)[i] - y) < settings->epsilon;
   };
 
-  void Compute::piecewsieImage(double (*polynomialArray)[16][16], double (*image)[80], Settings *settings)
+  void Compute::piecewsieImage(double (*polynomialArray)[16][16], double (*image)[64], Settings *settings)
   {
     int polynomialCount = 16;
 
-    // if (80 <= polynomialCount)
+    // if (64 <= polynomialCount)
     // {
     //   // do as many as you can in single width columns
-    //   for (int i = 0; i < 80; i++)
+    //   for (int i = 0; i < 64; i++)
     //   {
     //     double x = settings->xMin + i * settings->stepWidth;
     //     (*image)[i] = execute_a(polynomialArray[i], x);
@@ -52,8 +52,8 @@ using namespace std;
     // }
     // else
     {
-      // int quotient = 5; // std::floor(80.0 / (1.0 * polynomialCount));
-      // int remainder = 0;// 80 % polynomialCount;
+      // int quotient = 5; // std::floor(64.0 / (1.0 * polynomialCount));
+      // int remainder = 0;// 64 % polynomialCount;
       int stepsPerPolynomial[16];
       for (int i = 0; i < 16; i++)
       {
@@ -68,13 +68,13 @@ using namespace std;
       // }
 
       // compute which polynomial to use at each x step
-      int polynomialAtStep[80];
+      int polynomialAtStep[64];
       int pasIndex = 0;
       for (int i = 0; i < polynomialCount; i++)
       {
         for (int j = 0; j < stepsPerPolynomial[i]; j++)
         {
-          if (pasIndex < 80)
+          if (pasIndex < 64)
           {
             polynomialAtStep[pasIndex] = i;
             pasIndex += 1;
@@ -84,7 +84,7 @@ using namespace std;
       }
 
       // execute correct polynomial at each x step 
-      for (int i = 0; i < 80; i++)
+      for (int i = 0; i < 64; i++)
       {
         double x = settings->xMin + i * settings->stepWidth;
         // for (int k = 0; k < 16; k++)
