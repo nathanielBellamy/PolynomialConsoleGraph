@@ -131,6 +131,10 @@ using namespace std;
     {
       return '#';
     }
+    else if ((*image)[j] < y)
+    {
+      return 'o';
+    }
     else 
     {
       char backgroundChar = settings->backgroundChar;
