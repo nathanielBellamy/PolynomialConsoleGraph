@@ -37,7 +37,7 @@ using namespace std;
     return abs((*image)[i] - y) < settings->epsilon;
   };
 
-  void Compute::piecewsieImage(double (*polynomialArray)[16][16], double (*image)[64], Settings *settings)
+  void Compute::piecewiseImage(double (*polynomialArray)[16][16], double (*image)[64], Settings *settings)
   {
     int polynomialCount = 16;
 

@@ -71,7 +71,7 @@ using namespace std;
 		// std::string output;
 
 		// vector<double> image;
-		// image = Compute::piecewsieImage(polynomialArray, settings);
+		// image = Compute::piecewiseImage(polynomialArray, settings);
 		// 
 		// for (int j = settings->displayHeight; s > -1; s--) {
 		// 	y = (s * settings->stepHeight) + settings->yMin;
