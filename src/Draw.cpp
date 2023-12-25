@@ -41,7 +41,7 @@ using namespace std;
     {
       // printf("\n immm %f", (*image)[j]);
       x = (j * settings->stepWidth) + settings->xMin;
-      (*graphNext)[idx][j] = determineCharacterToRenderPiecewise(image, j, x, y, settings);
+      (*graphNext)[rowIndex][j] = determineCharacterToRenderPiecewise(image, j, x, y, settings);
     }
   }
 
