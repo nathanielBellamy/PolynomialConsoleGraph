@@ -35,12 +35,13 @@ using namespace std;
   {
     double x;
     double y;
-		y = ((double) rowIndex * settings->stepHeight) + settings->yMin;
+    int idx = settings->displayHeight - rowIndex - 1;
+		y = ((double) idx * settings->stepHeight) + settings->yMin;
     for (int j = 0; j < 64; j++) // column
     {
       // printf("\n immm %f", (*image)[j]);
       x = (j * settings->stepWidth) + settings->xMin;
-      (*graphNext)[rowIndex][j] = determineCharacterToRenderPiecewise(image, j, x, y, settings);
+      (*graphNext)[idx][j] = determineCharacterToRenderPiecewise(image, j, x, y, settings);
     }
   }
 
