@@ -54,7 +54,7 @@ using namespace std;
     CliValidate valid;
 
     std::cout << "============"
-      << "The default display size is 80 characters by 30 characters."
+      << "The default display size is 64 characters by 32 characters."
       << " Do you want to adjust the size for your graph?";
     bool adjustDisplaySize;
     adjustDisplaySize = get.cliyesno();
