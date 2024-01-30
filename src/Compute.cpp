@@ -4,6 +4,7 @@
 #include<vector>
 #include "Compute.h"
 #include "Settings.h"
+#include "../../Constants.h" // from nbsdsp repo containing this submodule
 using namespace std;
 
   double Compute::execute(vector<double> polynomial, double x) 
@@ -16,10 +17,10 @@ using namespace std;
     return output;
   };
 
-  double Compute::execute_a(double (*polynomial)[16], double x) 
+  double Compute::execute_a(double (*polynomial)[POLYNOMIAL_DEGREE_P1], double x) 
   {
     double output = 0.0;
-    for (int i = 0; i < 16; i++) 
+    for (int i = 0; i < POLYNOMIAL_DEGREE_P1; i++) 
     { 
       // printf("\npoly %i: %f", i, (*polynomial)[i]);
       output += (*polynomial)[i] * pow(x, i);
@@ -32,49 +33,32 @@ using namespace std;
     return abs(image[i] - y) < settings->epsilon;
   };
 
-  bool Compute::withinEpsilon_a(double (*image)[64], int i, double y, Settings *settings)
+  bool Compute::withinEpsilon_a(double (*image)[EQ_IMAGE_WIDTH], int i, double y, Settings *settings)
   {
     return abs((*image)[i] - y) < settings->epsilon;
   };
 
-  void Compute::piecewiseImage(double (*polynomialArray)[16][16], double (*image)[64], Settings *settings)
+  void Compute::piecewiseImage(
+    double (*polynomialArray)[POLYNOMIAL_ARRAY_LENGTH][POLYNOMIAL_DEGREE_P1], 
+    double (*image)[EQ_IMAGE_WIDTH], 
+    Settings *settings
+  )
   {
-    int polynomialCount = 16;
-
-    // if (64 <= polynomialCount)
-    // {
-    //   // do as many as you can in single width columns
-    //   for (int i = 0; i < 64; i++)
-    //   {
-    //     double x = settings->xMin + i * settings->stepWidth;
-    //     (*image)[i] = execute_a(polynomialArray[i], x);
-    //   }
-    // }
-    // else
     {
-      // int quotient = 5; // std::floor(64.0 / (1.0 * polynomialCount));
-      // int remainder = 0;// 64 % polynomialCount;
-      int stepsPerPolynomial[16];
-      for (int i = 0; i < 16; i++)
+      int stepsPerPolynomial[POLYNOMIAL_ARRAY_LENGTH];
+      for (int i = 0; i < POLYNOMIAL_ARRAY_LENGTH; i++)
       {
         stepsPerPolynomial[i] = 5;
       }
 
-      // // add remainder steps to middle intervals
-      // int extraMidFirstIndex = 0; // std::floor((polynomialCount - remainder) / 2.0);
-      // for (int j = 0; j < remainder; j++)
-      // {
-      //   stepsPerPolynomial[extraMidFirstIndex + j] += 1;
-      // }
-
       // compute which polynomial to use at each x step
-      int polynomialAtStep[64];
+      int polynomialAtStep[EQ_IMAGE_WIDTH] = { 2 };
       int pasIndex = 0;
-      for (int i = 0; i < polynomialCount; i++)
+      for (int i = 0; i < POLYNOMIAL_ARRAY_LENGTH; i++)
       {
         for (int j = 0; j < stepsPerPolynomial[i]; j++)
         {
-          if (pasIndex < 64)
+          if (pasIndex < EQ_IMAGE_WIDTH)
           {
             polynomialAtStep[pasIndex] = i;
             pasIndex += 1;
@@ -84,10 +68,10 @@ using namespace std;
       }
 
       // execute correct polynomial at each x step 
-      for (int i = 0; i < 64; i++)
+      for (int i = 0; i < EQ_IMAGE_WIDTH; i++)
       {
         double x = settings->xMin + i * settings->stepWidth;
-        // for (int k = 0; k < 16; k++)
+        // for (int k = 0; k < POLYNOMIAL_DEGREE_P1; k++)
         // {
         //   printf("\npA paS %i: %f", i, (*polynomialArray)[polynomialAtStep[i]][k]);
         // }
@@ -126,13 +110,13 @@ using namespace std;
 
 
   double Compute::stepWidth(Settings *settings) {
-    return (settings->xMax - settings->xMin)/settings->displayWidth;
+    return (settings->xMax - settings->xMin) / EQ_IMAGE_WIDTH;
   }
 
   double Compute::stepHeight(Settings *settings) {
-    return (settings->yMax - settings->yMin)/settings->displayHeight;
+    return (settings->yMax - settings->yMin) / EQ_IMAGE_HEIGHT;
   }
 
   int Compute::xStepCount(Settings *settings) {
-    return (settings->xMax - settings->xMin) / settings->stepWidth;
+    return (settings->xMax - settings->xMin) / EQ_IMAGE_WIDTH;
   }

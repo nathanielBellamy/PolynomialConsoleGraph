@@ -5,6 +5,7 @@
 #include "Draw.h"
 #include "Compute.h"
 #include "Settings.h"
+#include "../../Constants.h" // from nbsdsp repo containing this submodule
 using namespace std;
 
   std::string Draw::createRow(vector<vector<double> > imageArray, double y, Settings settings) 
@@ -27,17 +28,17 @@ using namespace std;
 	};
   
   void Draw::createRowPiecewise(
-    double (*image)[64], 
+    double (*image)[EQ_IMAGE_WIDTH], 
     int rowIndex, 
     Settings *settings,
-    char (*graphNext)[32][64]
+    char (*graphNext)[EQ_IMAGE_HEIGHT][EQ_IMAGE_WIDTH]
   )
   {
     double x;
     double y;
-    int idx = settings->displayHeight - rowIndex - 1;
+    int idx = EQ_IMAGE_HEIGHT - rowIndex - 1;
 		y = ((double) idx * settings->stepHeight) + settings->yMin;
-    for (int j = 0; j < 64; j++) // column
+    for (int j = 0; j < EQ_IMAGE_WIDTH; j++) // column
     {
       // printf("\n immm %f", (*image)[j]);
       x = (j * settings->stepWidth) + settings->xMin;
@@ -123,7 +124,13 @@ using namespace std;
 		return settings.backgroundChar;
 	};
 
-  char Draw::determineCharacterToRenderPiecewise(double (*image)[64], int j, double x, double y, Settings *settings) 
+  char Draw::determineCharacterToRenderPiecewise(
+    double (*image)[EQ_IMAGE_WIDTH], 
+    int j, 
+    double x, 
+    double y, 
+    Settings *settings
+  ) 
   {
     // printf("\nim: %f", (*image)[j]);
     // printf("\ny: %f", y);
